@@ -44,15 +44,19 @@ if __name__ == '__main__':
              "WHERE FIRST_NAME like 'S%' and sex not in ('Female');")
     sales = request_data(sfconn, query)
     print(sales)
-    create_sf_warehouse(sfconn, "WAREHOUSE", "my_new_warehouse_ep")
-    create_sf_warehouse(sfconn, "DATABASE", "my_new_database_ep")
+    create_sf_warehouse(sfconn, "WAREHOUSE", "my_newer_warehouse_ep")
+    sfconn.cursor().execute("USE WAREHOUSE my_newer_warehouse_ep")
+
+    create_sf_warehouse(sfconn, "DATABASE", "my_newer_database_ep")
     sfconn.cursor().execute("USE DATABASE my_new_database_ep")
-    create_sf_warehouse(sfconn, "SCHEMA", "my_new_schema_ep")
+    create_sf_warehouse(sfconn, "SCHEMA", "my_newer_schema_ep")
+    sfconn.cursor().execute("USE SCHEMA my_newer_schema_ep")
+
     sfconn.cursor().execute(
         "CREATE OR REPLACE TABLE "
-        "test_table(col1 integer, col2 string)")
+        "newer_test_table(col1 integer, col2 string)")
     sfconn.cursor().execute(
-        "INSERT INTO test_table(col1, col2) VALUES " +
+        "INSERT INTO newer_test_table(col1, col2) VALUES " +
         "    (123, 'test string1'), " +
         "    (456, 'test string2')")
     sfconn.cursor().close()
