@@ -26,6 +26,7 @@ def request_data(sfconn, query):
         data = cursor.fetch_pandas_all()
     return data
 
+
 def create_sf_warehouse(sf_conn, sf_object_type, sf_object_name):
     result = sf_conn.cursor().execute(f"CREATE {sf_object_type} IF NOT EXISTS {sf_object_name}")
     print(f'***{result}')
@@ -60,4 +61,3 @@ if __name__ == '__main__':
         "    (123, 'test string1'), " +
         "    (456, 'test string2')")
     sfconn.cursor().close()
-
